@@ -1,18 +1,13 @@
 from flask import Flask, request
 app=Flask(__name__)
 userage = { 'Pedro': '20', 'Maria': '19'}
-@app.route('/')
+@app.route('/',methods=['GET'])
 def index():
     return 'Server Works!'
 
-@app.route('/userage')
-def age():
-    return userage['Pedro']
-
-#agregar variables
-@app.route('/user/<username>')
-def show_user_age(username):
-    return 'Age: %s' % userage[username]
+@app.route('/<user>',methods=['GET'])
+def age(user):
+    return userage[user]
 
 #modificar o agregar elementos
 @app.route('/add/<string:nombre>/<string:edad>')
@@ -27,6 +22,6 @@ def suprimir(nombre):
     return 'exito'
 
 #muestra la lista completa
-@app.route('/lista')
+@app.route('/lista',methods=['GET'])
 def listar():
     return userage
